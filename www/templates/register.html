@@ -1,0 +1,32 @@
+<ion-view title="注册">
+  <ion-content>
+    <div class="text-center padding">
+      <img src="./img/logo.png" >
+    </div>
+    <div class="list">
+      <label class="item item-input">
+        <i class="icon icon-left ion-ios-telephone-outline padding"></i>
+        <input type="text" ng-model="user.cell" placeholder="输入手机号" >
+      </label>
+      <label class="item item-input">
+        <i class="icon icon-left ion-ios-person-outline padding"></i>
+        <input type="text" ng-model="user.name" placeholder="输入用户名" >
+      </label>
+      <label class="item item-input">
+        <i class="icon icon-left ion-ios-locked-outline padding"></i>
+        <input type="password" ng-model="user.password" placeholder="输入密码">
+      </label>
+    </div>
+    <div class="padding row text-center">
+       <span class="col">
+        <a class="button button-block button-light" href="#/sign-in">登录</a>
+      </span>
+      <span class="col">
+        <i class="button button-block button-positive" ng-click="register(user)">
+          立即注册
+        </i>
+      </span>
+
+    </div>
+  </ion-content>
+</ion-view>

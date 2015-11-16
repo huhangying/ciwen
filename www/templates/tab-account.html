@@ -1,0 +1,39 @@
+﻿<ion-view cache-view="false" view-title="{{title}}">
+  <ion-content>
+    <ion-list>
+    <ion-toggle  ng-model="settings.enableRotation">
+        允许屏幕旋转
+    </ion-toggle>
+    </ion-list>
+    <ion-list ng-click="logout()">
+      <div class="text-right padding-right">
+        <i class="button button-clear">退出登录</i>
+
+      </div>
+    </ion-list>
+    <div class="card">
+      <div class="item item-divider">
+        我的设备信息!
+      </div>
+      <div class="item item-text-wrap">
+        <ul class="list">
+          <li class="item">
+            Manufacturer : {{manufacturer}}
+          </li>
+          <li class="item">
+            Model : {{model}}
+          </li>
+          <li class="item">
+            Platform : {{platform}}
+          </li>
+          <li class="item">
+            UUID : {{uuid}}
+          </li>
+        </ul>
+      </div>
+      <div class="item item-divider text-right">
+        from <code>赞成科技</code>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

@@ -1,0 +1,17 @@
+<ion-view view-title="分类">
+  <ion-content>
+    <ion-list>
+      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="video in videos"
+                type="item-text-wrap" href="#/video/{{video.id}}?vid={{video.vid}}">
+        <img ng-src="{{video.face}}">
+        <h2>{{video.name}}</h2>
+        <p>视频内容介绍...</p>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+
+        <ion-option-button class="button-assertive" ng-click="remove(video)">
+          Delete
+        </ion-option-button>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>
