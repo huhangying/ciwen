@@ -12,7 +12,7 @@
       </div>
 
       <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="video in videos"
-                type="item-text-wrap" href="#/video/{{video.id}}?vid={{video.url}}">
+                type="item-text-wrap" href="#/video/{{video.id}}?id={{video.id}}&vid={{video.url}}">
         <img ng-src="{{video.img}}">
         <h2>{{video.name}}</h2>
         <p>{{video.content}}</p>

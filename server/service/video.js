@@ -35,7 +35,7 @@ module.exports = {
     }
     else{
       //错误参数
-      res.send('');
+      res.send('{"return":"error"}');
     }
   },
 
@@ -61,6 +61,7 @@ module.exports = {
     var queryString = 'select * from video where apply=1';
     db.findCommand(res, queryString);
   },
+
   // 根据CatId查看视频列表
   getVideosByCatId: function(req, res, next){
     var queryString = '';
@@ -72,6 +73,20 @@ module.exports = {
     }
     db.findCommand(res, queryString);
   },
+
+  // 查看单个视频
+  getVideoById: function(req, res, next){
+    var queryString = '';
+    if(req.params.id > 0){
+      queryString = 'select * from video where apply=1 and id=' + req.params.id;
+    }
+    else {
+      res.send('{"return":"empty"}');
+      return;
+    }
+    db.getCommand(res, queryString);
+  },
+
   createVideo: function(req, res, next){
 
     // 获取user数据（json）

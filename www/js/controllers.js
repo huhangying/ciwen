@@ -61,6 +61,7 @@ angular.module('starter.controllers', ['ngCordova'])
 
   })
 
+  // 注册 控制模块
   .controller('RegisterCtrl', function($scope, $state, $http, $cordovaToast,$rootScope) {
     //初始化 手机号和密码 for test
     $scope.user ={cell: "15601811217", password: "111111", name: 'test'};
@@ -129,7 +130,7 @@ angular.module('starter.controllers', ['ngCordova'])
   // 分类 控制模块
   .controller('CatCtrl', function($scope,Videos, $state, $http,$cordovaToast) {
     $scope.cats = Videos.catList();
-    $scope.optionCat = '1';
+    $scope.optionCat = '4';
 
     $scope.videos = Videos.getBycatId($scope.optionCat);
 
@@ -161,13 +162,26 @@ angular.module('starter.controllers', ['ngCordova'])
 
   })
 
-  .controller('VideoDetailCtrl', function($scope, $stateParams, Videos,$location, $state) {
+  // 视频 控制模块
+  .controller('VideoDetailCtrl', function($scope, $stateParams, Videos,$location, $state,$http,$cordovaToast) {
     if (window.localStorage['authorized'] != 'yes'){
       $state.go('signin');
       return;
     }
+    var id = $location.search().id;
+    if (id == '4')
+      $scope.video = Videos.get($stateParams.vid);
+    else{
+      $http.get('http://182.92.230.67:3300/video/' + id).then(function(response) {
+        if (response.data.return == 'empty') {
+          $cordovaToast.showShortCenter('视频不存在');
+          return;
+        }
+        $scope.video = response.data[0];
+        //alert(JSON.stringify($scope.video));
+      });
+    }
 
-    $scope.video = Videos.get($stateParams.vid);
     $scope.videoHeight = function(){
       var winWidth = 0;
       //var winHeight = 0;
@@ -191,8 +205,13 @@ angular.module('starter.controllers', ['ngCordova'])
       //结果输出至两个文本框
       //document.form1.availHeight.value= winHeight;
       //document.form1.availWidth.value= winWidth;
-      return winWidth * 9 / 16;
+      return winWidth * 10 / 16;
     }
+
+    $scope.voteIt = function(){
+      $scope.video.vote += 1;
+    }
+
     $scope.videosrc = "mvqq.html?vid=" + $location.search().vid;
 
   })

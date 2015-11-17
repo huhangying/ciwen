@@ -47,7 +47,7 @@ router.route('/cat/:id')
 router.route('/video/update').put(urlencodedParser, Videos.updateVideo);
 router.route('/video').get(Videos.getVideoList);
 router.route('/video/add').post(Videos.createVideo);
-router.route('/video/:id').get(Videos.getCatOne);
+router.route('/video/:id').get(Videos.getVideoById);
 
 
 app.use('/', router);

@@ -56,12 +56,12 @@ module.exports = {
         console.log("error: " + err.stack);
         conn.end();
       }
-      console.log(JSON.stringify(rows));
-      console.log(rows.length);
+      //console.log(JSON.stringify(rows));
+      //console.log(rows.length);
       if (rows.length > 0)
         res.send(rows);
       else
-        res.send('{"return": "NotFound"}');
+        res.send('{"return": "empty"}');
     });
   },
 

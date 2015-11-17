@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+  <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+  <title></title>
+  <script type="text/javascript">
+    var timePoints=new Array();
+    !function(){function a(a){a=a||window.location.toString();var d,b=c("vid",a);return b||(d=a.match(/\/\w{15}\/(\w+)\.html/))&&(b=d[1]),b||((d=a.match(/\/page\/\w{1}\/\w{1}\/\w{1}\/(\w+)\.html/))?b=d[1]:(d=a.match(/\/(page|play)\/+(\w{11})\.html/))&&(b=d[2])),b||(d=a.match(/\/boke\/gplay\/\w+_\w+_(\w+)\.html/))&&(b=d[1]),encodeURIComponent(b)}function b(){var a="",b=window.location.toString();return/\/cover\/\S\/(\S{15})/.test(b)?a=RegExp.$1:/\/prev\/\S\/(\S{15})/.test(b)?a=RegExp.$1:/\/detail\/\S\/(\S{15})\.html/.test(b)&&(a=RegExp.$1),encodeURIComponent(a)}function c(a,b){var c,d;return b=b||document.location.toString(),c=new RegExp("[?&#]"+a+"=([^&#]+)","i"),d=c.exec(b),d&&d.length>1?d[1]:""}function d(){var a=c("ptag")||c("PTAG"),b="v.play.adaptor";return a?a+="#{defaulTag}#1":a=/https?:\/\/(.+?)(\/|$)/.test(document.referrer)?RegExp.$1+"#{defaulTag}#2":"v_qq_com#{defaulTag}#3",-1!=location.href.indexOf("/detail/")&&(b="v.detail.adaptor"),encodeURIComponent(a.replace("{defaulTag}",b))}function e(a){var e,f,b=location.search||"",c=[],d=[];if(b.length>0)for(b=b.substr(1),d=b.split("&"),e=0,f=d.length;f>e;e++)/^ptag=/i.test(d[e])||/^vid=/i.test(d[e])||c.push(d[e]);return c.length>0&&(a=a+(-1==a.indexOf("?")?"?":"&")+c.join("&")),a}var g,h,i,j,k;try{window!=top&&document.referrer&&-1!=document.referrer.indexOf("v.baidu.com")&&(top.location.href=self.location.href)}catch(f){};var istablet = /android/i.test(navigator.userAgent) && !/mobile/i.test(navigator.userAgent);if(!istablet&&!/ipad/i.test(navigator.userAgent)&&/(android)|(iphone)|(ipod)|(mqqbrowser)/i.test(navigator.userAgent)&&!/MI PAD/.test(navigator.userAgent)&&("string"!=typeof document.referrer||-1==document.referrer.indexOf("m.v.qq.com/")))try{if(g=a(),h=b(),i=d(),j="http://m.v.qq.com/",15==h.length)j+="cover/"+h.charAt(0)+"/"+h+".html",g&&(j+="?vid="+g);else{if(11!=g.length)return;j+="page/"+[g.charAt(0),g.charAt(9),g.charAt(10),g].join("/")+".html"}j+=(-1==j.indexOf("?")?"?":"&")+"ptag="+i,document.referrer&&(j+="&mreferrer="+encodeURIComponent(document.referrer)),location.replace(e(j))}catch(f){}/\/cover|gplay|page\//.test(window.location.href)&&(k=new Image,k.src="http://rcgi.video.qq.com/web_report?cmd=3514&idx=1&refer="+encodeURIComponent(document.referrer)+"&_="+ +new Date)}();
+  </script>
+
+  <link rel="stylesheet" href="http://imgcache.gtimg.cn/tencentvideo_v1/vstyle/web/v3/style/base.css?v=20150924&max_age=2592000" />
+  <link rel="stylesheet" href="http://imgcache.gtimg.cn/tencentvideo_v1/vstyle/web/v3/style/play_base.css?v=20150924&max_age=604800"/>
+  <script src="http://qzs.qq.com/tencentvideo_v1/js/txv.badjs.min.js?v=20130820&max_age=2592000"></script>
+
+<body>
+
+<div class="mod_player" id="mod_player">
+
+  <script type="text/javascript">
+    timePoints[0]=new Date();
+    var COVER_INFO = {
+      title :"",
+      secTitle : "",
+      brief : "",
+      id :"4otm0q2ja1wrfms",
+      isPrev :false,
+      pic :"",
+      typeid:23,
+      videoReName :false,
+      sourceid:0,
+      columnid:0,
+      copyright:5,
+      bookTips:"",
+      playright:"+1+2+3+4+5+8+",
+      isExclusive:false,
+      subtypeid:""
+    };
+    var COVER_EX_INFO = {
+      afterjs : "txv.news.aftershowplayer.js"
+    };
+    var PAGE_INFO = {
+      pageType : 1,
+      tplType:2,
+      isVideoPage:true,
+      scoreType:2,
+      sideVideoSize:19,
+      videoTabSize:30,
+      showBook:false,
+      bookType:"",
+      commentType:4,
+      listitemh:"78"
+    };
+    var VIDEO_INFO={
+      title : "",
+      duration:"33",
+      vid:"t0018dpi8ud",
+      piantou:0,
+      pianwei:0
+    };
+    PLAYER_INFO={
+      width: "640px",
+      height: "400px"
+    };
+    PAGEHOT="cover3";
+    function g_playpage_allready()
+    {
+      try{
+      }
+      catch(e){}
+    }
+  </script>
+
+  <script type="text/javascript" src="http://qzs.qq.com/tencentvideo_v1/js/lab.min.js?v=20130820&amp;max_age=2592000"></script>
+  <script type="text/javascript">
+    try{
+      var FileMap={
+        "txv.aftershowplayer.js": "txv.aftershowplayer.cdbb2cce.js",
+        "txv.auto.aftershowplayer.js": "txv.auto.aftershowplayer.1000e176.js",
+        "txv.bokeplay.js": "txv.bokeplay.2cab3b08.js",
+        "txv.boke_aftershowplayer.js": "txv.boke_aftershowplayer.b46c8271.js",
+        "txv.cartoon.aftershowplayer.js": "txv.cartoon.aftershowplayer.ccc2416f.js",
+        "txv.cover.aftershowplayer.js": "txv.cover.aftershowplayer.a0bc9d74.js",
+        "txv.coverplay.js": "txv.coverplay.e531c0f2.js",
+        "txv.fashion.aftershowplayer.js": "txv.fashion.aftershowplayer.013730a5.js",
+        "txv.fun.aftershowplayer.js": "txv.fun.aftershowplayer.067516eb.js",
+        "txv.game.aftershowplayer.js": "txv.game.aftershowplayer.8bd56b50.js",
+        "txv.movie.aftershowplayer.js": "txv.movie.aftershowplayer.bace9c31.js",
+        "txv.music.aftershowplayer.js": "txv.music.aftershowplayer.93bcc26d.js",
+        "txv.nba.aftershowplayer.js": "txv.nba.aftershowplayer.7089acee.js",
+        "txv.news.aftershowplayer.js": "txv.news.aftershowplayer.d31d65dd.js",
+        "txv.playpage.follow.js": "txv.playpage.follow.f0b9c8df.js",
+        "txv.sports.aftershowplayer.js": "txv.sports.aftershowplayer.7e45fccc.js",
+        "txv.variety.aftershowplayer.js": "txv.variety.aftershowplayer.86f5907a.js",
+        "txv.varietyfifteen.aftershowplayer.js": "txv.varietyfifteen.aftershowplayer.3d5bb501.js",
+        "txv.videoplay.js": "txv.videoplay.885f1f58.js"
+      }
+
+    }catch(e){
+    };
+    function getFilePath(file,defaultfile){
+      if(typeof FileMap == "undefined"){
+        window.FileMap = {};
+      }
+      if(!FileMap[file]){
+        file = defaultfile;
+      }
+      return "http://qzs.qq.com/tencentvideo_v1/script/" + (FileMap[file] ? ("hash/" + FileMap[file]) : ("play/"+file)) + "?v=201503200&max_age=604800";
+    }
+    function getPlayerJs(){
+      //return "tvp/js/tvp.player_v2_txv_vod_ipad.js";
+      return /ipad/i.test(navigator.userAgent) && !/windows/i.test(navigator.userAgent) ? "tvp/js/tvp.player_v2_txv_vod_ipad.js" : "tvp/js/tvp.player_v2_txv_vod.js";
+    }
+
+
+    function init(){
+      timePoints[1]=new Date();
+      window.PAGE_INFO = window.PAGE_INFO || {};
+      PAGE_INFO.flashVersionTag = 'v=20151010';
+      Live.actionManager.one(txv.ACTION.AFTER_SHOW_PLAYER,function(){
+        var afterjs = "";
+        if(typeof COVER_EX_INFO != "undefined" && COVER_EX_INFO.afterjs){
+          afterjs = COVER_EX_INFO.afterjs;
+        }
+        $LAB.script(getFilePath(afterjs,"txv.cover.aftershowplayer.js")).wait().wait(function(){
+          if(typeof replaceUrl!="undefined" &&$j.isFunction(replaceUrl)){
+            Live.login.addLoginCallback(replaceUrl);}
+        }).wait(function(){typeof g_playpage_allready == "function" ? g_playpage_allready() : "";});
+      });
+      txv.playpg.init();
+      timePoints[2]=new Date();
+      _sreport();
+    }
+    $LAB.script("http://qzs.qq.com/tencentvideo_v1/js/txv.core.min.js?v=20150909&max_age=2592000")
+      .wait(function(){$j("[data-hidecurblock='1']").remove();})
+      .script("http://qzs.qq.com/tencentvideo_v1/"+getPlayerJs()+"?v=20150929&max_age=2592000").wait()
+      .script(getFilePath("txv.coverplay.js")).wait(init)
+      .script("http://qzs.qq.com/tencentvideo_v1/js/txv.flashminipay.min.js?v=201503200&max_age=604800");
+  </script>
+
+</body>
+</html>
