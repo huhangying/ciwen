@@ -1,0 +1,64 @@
+<html ng-app="admin">
+
+<head>
+  <meta charset="utf-8" />
+  <title>视频管理后台</title>
+  <script>document.write('<base href="' + document.location + '" />');</script>
+
+  <script data-require="angular.js@1.2.x" src="http://code.angularjs.org/1.2.13/angular.js" data-semver="1.2.13"></script>
+
+  <script src="http://cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+  <script src="http://cdn.bootcss.com/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.min.js"></script>
+  <script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <script src="js/app.js"></script>
+  <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/mycss.css" />
+</head>
+
+<body ng-controller="adminCtrl">
+<h2>视频管理</h2>
+<!--<input id="test" value="ddd"/>-->
+<form class="form-inline">
+<table class="table table-striped table-condensed table-hover table-responsive">
+  <tr class="info row">
+    <th>标题</th>
+    <th>内容</th>
+    <th>作者</th>
+    <th>视频链接</th>
+    <th>下载链接</th>
+    <th>票数</th>
+    <th></th>
+  </tr>
+  <tr ng-repeat="employee in employees" class="row">
+    <td>
+      <input type="text" class='class{{employee.id}} form-control' ng-model="employee.name" class="inactive" readonly />
+    </td>
+    <td>
+      <input type="text" class='class{{employee.id}} form-control' ng-model="employee.phone" class="inactive" readonly />
+    </td>
+    <td>
+      <input type="text" class='class{{employee.id}} form-control' ng-model="employee.author" class="inactive" readonly />
+    </td>
+    <td>
+      <input type="text" class='class{{employee.id}} form-control' ng-model="employee.url" class="inactive" readonly />
+    </td>
+    <td>
+      <input type="text" class='class{{employee.id}} form-control' ng-model="employee.dl_url" class="inactive" readonly />
+    </td>
+    <td>
+      {{employee.id}}
+    </td>
+    <td>
+      <div class="form-group" style="width:120px;">
+      <edit ng-Model="employee" ng-show="showEdit"><a class="btn btn-info btn-xs">编辑</a></edit>
+      <update ng-Model="employee" ng-show="!showEdit"><a class="btn btn-info btn-xs">更新</a></update>
+      <cancel ng-Model="employee" ng-show="!showEdit"><a class="btn btn-default btn-xs">取消</a></cancel>
+      <delete ng-Model="employee"><a class="btn btn-default btn-xs">删除</a></delete>
+      </div>
+    </td>
+  </tr>
+</table>
+</form>
+</body>
+
+</html>

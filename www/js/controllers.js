@@ -170,6 +170,12 @@ angular.module('starter.controllers', ['ngCordova'])
   })
 
   .controller('AccountCtrl', function($scope, $state,$rootScope,$cordovaDevice) {
+
+    if (localStorage['authorized'] == undefined || localStorage['authorized'] != 'yes'){
+      $state.go('signin');
+      return;
+    }
+
     $scope.settings = {
       enableRotation: true
     };

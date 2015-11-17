@@ -1,0 +1,7 @@
+.inactive {
+  border: none;
+  background-color: #fff;
+}
+.active{
+  background-color: #fff;
+}
