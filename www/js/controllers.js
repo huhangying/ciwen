@@ -126,11 +126,39 @@ angular.module('starter.controllers', ['ngCordova'])
     }
   })
 
-  .controller('CatCtrl', function($scope,Videos, $state) {
-    $scope.videos = Videos.all();
+  // 分类 控制模块
+  .controller('CatCtrl', function($scope,Videos, $state, $http,$cordovaToast) {
+    $scope.cats = Videos.catList();
+    $scope.optionCat = '1';
+
+    $scope.videos = Videos.getBycatId($scope.optionCat);
+
+
+    $scope.selectAction = function(optionCat) {
+      if (optionCat == '4')
+        $scope.videos = Videos.getBycatId(optionCat);
+      else
+        this.getVideosByCatId(optionCat);
+    }
+
     $scope.remove = function(video) {
       Videos.remove(video);
     };
+
+    $scope.getVideosByCatId = function(catId) {
+
+       $http.get('http://182.92.230.67:3300/cat/'+ catId).then(function(response){
+
+        if (response.data.return == 'empty'){
+          $scope.videos = [];
+          $cordovaToast.showShortCenter('该类别下面没有视频');
+          return;
+        }
+        $scope.videos = response.data;
+      });
+    };
+
+
   })
 
   .controller('VideoDetailCtrl', function($scope, $stateParams, Videos,$location, $state) {

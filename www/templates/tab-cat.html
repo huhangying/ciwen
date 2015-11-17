@@ -1,11 +1,21 @@
 <ion-view view-title="分类">
   <ion-content>
     <ion-list>
+      <div class="x">
+        <label class="item item-input item-select">
+          <h4 class=""> 视频分类 </h4>
+          <select class="padding" ng-model="optionCat" ng-change="selectAction(optionCat)"
+                  ng-options="cat.id as cat.name for cat in cats">
+            <!--<option>&#45;&#45; 请选择 &#45;&#45;</option>-->
+          </select>
+        </label>
+      </div>
+
       <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="video in videos"
-                type="item-text-wrap" href="#/video/{{video.id}}?vid={{video.vid}}">
-        <img ng-src="{{video.face}}">
+                type="item-text-wrap" href="#/video/{{video.id}}?vid={{video.url}}">
+        <img ng-src="{{video.img}}">
         <h2>{{video.name}}</h2>
-        <p>视频内容介绍...</p>
+        <p>{{video.content}}</p>
         <i class="icon ion-chevron-right icon-accessory"></i>
 
         <ion-option-button class="button-assertive" ng-click="remove(video)">

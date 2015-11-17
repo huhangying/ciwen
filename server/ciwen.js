@@ -39,9 +39,15 @@ router.route('/user')
 router.route('/user/:cell')
   .get(Users.getOne);
 router.route('/cat')
-  .get(Videos.getCatOne)
+  .get(Videos.getCatList)
   .post(Videos.createCatOne)
   .put(Videos.updateCatOne);
+router.route('/cat/:id')
+  .get(Videos.getVideosByCatId);
+router.route('/video/update').put(urlencodedParser, Videos.updateVideo);
+router.route('/video').get(Videos.getVideoList);
+router.route('/video/add').post(Videos.createVideo);
+router.route('/video/:id').get(Videos.getCatOne);
 
 
 app.use('/', router);

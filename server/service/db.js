@@ -14,6 +14,23 @@ conn.connect();
 var Q = require('q');
 
 module.exports = {
+
+  //findCommand：返回查询列表
+  findCommand: function (res, cmd) {
+    conn.query(cmd, function (err, rows, fields) {
+      if (err) {
+        console.log("error: " + err.stack);
+        conn.end();
+        return -1;
+      }
+
+      if (rows.length > 0)
+        res.send(rows);
+      else
+        res.send('{"return": "empty"}');
+      return rows.length;
+    });
+  },
   //queryCommand：返回数据库操作结果
   queryCommand: function (res, cmd) {
     conn.query(cmd, function (err, rows, fields) {

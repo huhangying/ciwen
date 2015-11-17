@@ -5,7 +5,7 @@
   <title>视频管理后台</title>
   <script>document.write('<base href="' + document.location + '" />');</script>
 
-  <script data-require="angular.js@1.2.x" src="http://code.angularjs.org/1.2.13/angular.js" data-semver="1.2.13"></script>
+  <script data-require="angular.js@1.2.x" src="js/angular.min.js" data-semver="1.2.13"></script>
 
   <script src="http://cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
   <script src="http://cdn.bootcss.com/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.min.js"></script>
@@ -29,31 +29,33 @@
     <th>票数</th>
     <th></th>
   </tr>
-  <tr ng-repeat="employee in employees" class="row">
+  <tr ng-repeat="video in videos" class="row">
     <td>
-      <input type="text" class='class{{employee.id}} form-control' ng-model="employee.name" class="inactive" readonly />
+      <input type="hidden" name="value" ng-model="video.id" >
+      <input type="hidden" name="value" ng-model="video.cat_id" >
+      <input type="text" class='class{{video.id}} form-control' ng-model="video.name" class="inactive" readonly />
     </td>
     <td>
-      <input type="text" class='class{{employee.id}} form-control' ng-model="employee.phone" class="inactive" readonly />
+      <input type="text" class='class{{video.id}} form-control' ng-model="video.content" class="inactive" readonly />
     </td>
     <td>
-      <input type="text" class='class{{employee.id}} form-control' ng-model="employee.author" class="inactive" readonly />
+      <input type="text" class='class{{video.id}} form-control' ng-model="video.author" class="inactive" readonly />
     </td>
     <td>
-      <input type="text" class='class{{employee.id}} form-control' ng-model="employee.url" class="inactive" readonly />
+      <input type="text" class='class{{video.id}} form-control' ng-model="video.url" class="inactive" readonly />
     </td>
     <td>
-      <input type="text" class='class{{employee.id}} form-control' ng-model="employee.dl_url" class="inactive" readonly />
+      <input type="text" class='class{{video.id}} form-control' ng-model="video.dl_url" class="inactive" readonly />
     </td>
     <td>
-      {{employee.id}}
+      <label class="form-control" ng-model="video.vote">{{video.vote}}</label>
     </td>
     <td>
       <div class="form-group" style="width:120px;">
-      <edit ng-Model="employee" ng-show="showEdit"><a class="btn btn-info btn-xs">编辑</a></edit>
-      <update ng-Model="employee" ng-show="!showEdit"><a class="btn btn-info btn-xs">更新</a></update>
-      <cancel ng-Model="employee" ng-show="!showEdit"><a class="btn btn-default btn-xs">取消</a></cancel>
-      <delete ng-Model="employee"><a class="btn btn-default btn-xs">删除</a></delete>
+      <edit ng-Model="video" ng-show="showEdit"><a class="btn btn-info btn-xs">编辑</a></edit>
+      <update ng-Model="video" ng-show="!showEdit"><a class="btn btn-info btn-xs" onclick="updateVideo(ngModel)">更新</a></update>
+      <cancel ng-Model="video" ng-show="!showEdit"><a class="btn btn-default btn-xs">取消</a></cancel>
+      <delete ng-Model="video"><a class="btn btn-default btn-xs">删除</a></delete>
       </div>
     </td>
   </tr>

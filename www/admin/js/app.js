@@ -4,15 +4,17 @@
 
 var app = angular.module('admin', ['ui.bootstrap']);
 
-app.controller('adminCtrl', function($scope) {
-  $scope.name = 'World';
-  $scope.employees =[
-    {id:101, name:'John', phone:'555-1276', author:'dsd',url:'',dl_url:''},
-    {id:102, name:'Mary', phone:'800-1233', author:'dsd',url:'',dl_url:''},
-    {id:103,name:'Mike', phone:'555-4321', author:'dsd',url:'',dl_url:''},
-    {id:104,name:'Adam', phone:'555-5678', author:'dsd',url:'',dl_url:''},
-    {id:105,name:'Julie', phone:'555-8765', author:'dsd',url:'',dl_url:''},
-    {id:106,name:'Juliette', phone:'555-5678', author:'dsd',url:'',dl_url:''}];
+app.controller('adminCtrl', function($scope, $http) {
+
+  $scope.name = 'Hello';
+  $http.get('http://182.92.230.67:3300/video')
+    .then(function(response){
+      if (response.data.return == 'empty'){
+        alert('没有视频数据');
+      }
+      else
+        $scope.videos = response.data;
+    });
   $scope.showEdit = true;
   $scope.master = {};
 });
@@ -41,13 +43,36 @@ app.directive("edit",function($document){
   }
 });
 
+var updateVideo = function(ngModel){
+ alert(Object.toParams(ngModel.$modelValue));
+
+  //alert("更新");
+  //$http.put('http://182.92.230.67:3300/video/update',
+  //  //ngModel.$modelValue,{
+  //  Object.toParams(ngModel.$modelValue),{
+  //    dataType: 'json',
+  //    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+  //  })
+  //  .success(function(data, status, headers, config){
+  //    if (response.data.return == 'empty'){
+  //      alert('没有视频数据');
+  //    }
+  //    else {
+  //      $scope.videos = response.data;
+  //    }
+  //  })
+  //  .error(function(data,status, headers, config){
+  //    console.log('insert video error');
+  //  });
+}
+
+
 app.directive("update",function($document){
   return{
     restrict: 'AE',
     require: 'ngModel',
-    link: function(scope,element,attrs,ngModel){
+    link: function(scope,element,attrs,ngModel,$http){
       element.bind("click",function(){
-        //alert(ngModel.$modelValue + " 更新.");
         var classid = "class" + ngModel.$modelValue.id;
         var obj = $("."+classid);
         obj.removeClass("active");
@@ -107,3 +132,13 @@ app.directive("delete",function($document){
   }
 });
 
+
+// FUNCTIONS
+
+Object.toParams = function ObjecttoParams(obj) {
+  var p = [];
+  for (var key in obj) {
+    p.push(key + '=' + encodeURIComponent(obj[key]));
+  }
+  return p.join('&');
+};

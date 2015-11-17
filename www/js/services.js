@@ -2,37 +2,65 @@ angular.module('starter.services', [])
 
   .factory('Videos', function() {
     // Might use a resource here that returns a JSON array
+    var cats = [{
+      id: '1',
+      name: '暗黑者 第一季',
+      desc: '',
+      img: 'img/ben.png'
+    }, {
+      id: '2',
+      name: '暗黑者 第二季',
+      desc: '',
+      img: 'img/max.png'
+    }, {
+      id: '3',
+      name: '暗黑者 第三季',
+      desc: '',
+      img: 'img/adam.jpg'
+    }, {
+      id: '4',
+      name: '其他',
+      desc: '',
+      img: 'img/adam.jpg'
+    }];
 
     // Some fake testing data
     var videos = [{
       id: 0,
       name: '高清的三维展示',
-      vid: 'x0172n1hr1n',
-      face: 'img/ben.png'
+      url: 'x0172n1hr1n',
+      img: 'img/ben.png'
     }, {
       id: 1,
       name: '在线电子杂志',
-      vid: 'u0172lwnzis',
-      face: 'img/max.png'
+      url: 'u0172lwnzis',
+      img: 'img/max.png',
+      content:'视频内容介绍..'
     }, {
       id: 2,
       name: 'ipad上看视频',
-      vid: 'y0172c02fug',
-      face: 'img/adam.jpg'
+      url: 'y0172c02fug',
+      img: 'img/adam.jpg',
+      content:'视频内容介绍..'
     }, {
       id: 3,
       name: '汽车电子目录',
-      vid: 'r0172snni0m',
-      face: 'img/perry.png'
+      url: 'r0172snni0m',
+      img: 'img/perry.png',
+      content:'视频内容介绍..'
     }, {
       id: 4,
       name: '12屏高清展示',
-      vid: 'p0172vndmgg',
-      face: 'img/mike.png'
+      url: 'p0172vndmgg',
+      img: 'img/mike.png',
+      content:'视频内容介绍..'
     }];
 
     return {
-      all: function() {
+      catList: function() {
+        return cats;
+      },
+      getBycatId: function(catId) {
         return videos;
       },
       remove: function(video) {
