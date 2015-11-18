@@ -216,7 +216,18 @@ angular.module('starter.controllers', ['ngCordova'])
 
   })
 
-  .controller('AccountCtrl', function($scope, $state,$rootScope,$cordovaDevice) {
+  // 片花 控制模块
+  .controller('TrailerCtrl', function($scope,$state, $http,$cordovaDevice) {
+
+    // 设备信息 for test
+    $scope.manufacturer=$cordovaDevice.getManufacturer();
+    $scope.model=$cordovaDevice.getModel();
+    $scope.platform=$cordovaDevice.getPlatform();
+    $scope.uuid=$cordovaDevice.getUUID();
+    //$scope.isOnline = $cordovaNetwork.isOnline();
+  })
+
+  .controller('AccountCtrl', function($scope, $state,$rootScope) {
 
     if (localStorage['authorized'] == undefined || localStorage['authorized'] != 'yes'){
       $state.go('signin');
@@ -242,12 +253,6 @@ angular.module('starter.controllers', ['ngCordova'])
       $state.go('tab.home');
     }
 
-    // 设备信息
-    $scope.manufacturer=$cordovaDevice.getManufacturer();
-    $scope.model=$cordovaDevice.getModel();
-    $scope.platform=$cordovaDevice.getPlatform();
-    $scope.uuid=$cordovaDevice.getUUID();
-    //$scope.isOnline = $cordovaNetwork.isOnline();
   });
 
 

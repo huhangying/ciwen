@@ -59,25 +59,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','n
           }
         }
       })
-      .state('signin', {
-        url: '/sign-in',
-        templateUrl: 'templates/sign-in.html',
-        controller: 'SignInCtrl'
-      })
-      .state('register', {
-        url: '/register',
-        templateUrl: 'templates/register.html',
-        controller: 'RegisterCtrl'
-      })
-      .state('forgotpassword', {
-        url: '/forgot-password',
-        templateUrl: 'templates/forgot-password.html'
-      })
-      .state('video-detail', {
-        url: '/video/:vid',
-        templateUrl: 'templates/video.html',
-        controller: 'VideoDetailCtrl'
-      })
 
       .state('tab.cat', {
         url: '/cat',
@@ -96,6 +77,36 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','n
             controller: 'AccountCtrl'
           }
         }
+      })
+
+      .state('tab.trailer', {
+        url: '/trailer',
+        views: {
+          'tab-trailer': {
+            templateUrl: 'templates/tab-trailer.html',
+            controller: 'TrailerCtrl'
+          }
+        }
+      })
+
+      .state('signin', {
+        url: '/sign-in',
+        templateUrl: 'templates/sign-in.html',
+        controller: 'SignInCtrl'
+      })
+      .state('register', {
+        url: '/register',
+        templateUrl: 'templates/register.html',
+        controller: 'RegisterCtrl'
+      })
+      .state('forgotpassword', {
+        url: '/forgot-password',
+        templateUrl: 'templates/forgot-password.html'
+      })
+      .state('video-detail', {
+        url: '/video/:vid',
+        templateUrl: 'templates/video.html',
+        controller: 'VideoDetailCtrl'
       });
 
     // if none of the above states are matched, use this as the fallback
