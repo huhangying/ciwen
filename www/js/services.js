@@ -29,30 +29,36 @@ angular.module('starter.services', [])
       id: 0,
       name: '高清的三维展示',
       url: 'x0172n1hr1n',
-      img: 'img/ben.png'
+      screenshot: 'img/ben.png',
+      author: '作者',
+      content:'视频内容介绍..'
     }, {
       id: 1,
       name: '在线电子杂志',
       url: 'u0172lwnzis',
-      img: 'img/max.png',
+      screenshot: 'img/max.png',
+      author: '作者',
       content:'视频内容介绍..'
     }, {
       id: 2,
       name: 'ipad上看视频',
       url: 'y0172c02fug',
-      img: 'img/adam.jpg',
+      screenshot: 'img/adam.jpg',
+      author: '作者',
       content:'视频内容介绍..'
     }, {
       id: 3,
       name: '汽车电子目录',
       url: 'r0172snni0m',
-      img: 'img/perry.png',
+      screenshot: 'img/perry.png',
+      author: '作者',
       content:'视频内容介绍..'
     }, {
       id: 4,
       name: '12屏高清展示',
       url: 'p0172vndmgg',
-      img: 'img/mike.png',
+      screenshot: 'img/mike.png',
+      author: '作者',
       content:'视频内容介绍..'
     }];
 

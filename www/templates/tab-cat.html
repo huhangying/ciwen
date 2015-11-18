@@ -11,9 +11,9 @@
         </label>
       </div>
 
-      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="video in videos"
+      <ion-item class="item-remove-animate item-image item-icon-right" ng-repeat="video in videos"
                 type="item-text-wrap" href="#/video/{{video.id}}?id={{video.id}}&vid={{video.url}}">
-        <img ng-src="{{video.img}}">
+        <img ng-src="{{video.screenshot}}">
         <h2>{{video.name}}</h2>
         <p>{{video.content}}</p>
         <i class="icon ion-chevron-right icon-accessory"></i>

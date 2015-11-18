@@ -227,7 +227,7 @@ angular.module('starter.controllers', ['ngCordova'])
     //$scope.isOnline = $cordovaNetwork.isOnline();
   })
 
-  .controller('AccountCtrl', function($scope, $state,$rootScope) {
+  .controller('AccountCtrl', function($scope, $state,$rootScope,$http,$cordovaToast) {
 
     if (localStorage['authorized'] == undefined || localStorage['authorized'] != 'yes'){
       $state.go('signin');
@@ -238,11 +238,12 @@ angular.module('starter.controllers', ['ngCordova'])
       enableRotation: true
     };
 
-    $scope.title = '我';
+    $scope.cell = '';
     if (localStorage['cell'] == '' || localStorage['cell'] == undefined)
-      $scope.title = '我';
+      $scope.user_name = '我未登录';
     else{
-      $scope.title = localStorage['name'] == '' ? '我' : localStorage['name']  + ' (' + localStorage['cell'] + ')';
+      $scope.user_name = localStorage['name'];
+      $scope.cell == '(' + localStorage['cell'] + ')';
     }
 
     $scope.logout = function(){
@@ -252,6 +253,15 @@ angular.module('starter.controllers', ['ngCordova'])
       $rootScope.previousState = '';
       $state.go('tab.home');
     }
+
+    $http.get('http://182.92.230.67:3300/video').then(function(response) {
+      if (response.data.return == 'empty') {
+        $cordovaToast.showShortCenter('我没有投票记录，赶紧去投票吧！');
+        return;
+      }
+      $scope.videos = response.data;
+      //alert(JSON.stringify($scope.videos));
+    });
 
   });
 

@@ -69,6 +69,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','n
           }
         }
       })
+
+      .state('tab.trailer', {
+        url: '/trailer',
+        views: {
+          'tab-trailer': {
+            templateUrl: 'templates/tab-trailer.html',
+            controller: 'CatCtrl'
+          }
+        }
+      })
       .state('tab.account', {
         url: '/account',
         views: {
@@ -79,15 +89,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','n
         }
       })
 
-      .state('tab.trailer', {
-        url: '/trailer',
-        views: {
-          'tab-trailer': {
-            templateUrl: 'templates/tab-trailer.html',
-            controller: 'TrailerCtrl'
-          }
-        }
-      })
 
       .state('signin', {
         url: '/sign-in',
