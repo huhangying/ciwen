@@ -222,7 +222,16 @@ angular.module('starter.controllers', ['ngCordova'])
     }
 
     $scope.voteIt = function(){
-      $scope.video.vote += 1;
+      $http.get('http://182.92.230.67:3300/video/vote/' + $scope.video.id).then(function(response) {
+        if (response.data.return == 'error'){
+          //$cordovaToast.showShortCenter('视频不存在');
+          return;
+        }
+        //$scope.video = response.data[0];
+        //alert(JSON.stringify($scope.video));
+        $scope.video.vote += 1;
+        $cordovaToast.showShortCenter('谢谢支持！');
+      })
     }
 
     $scope.videosrc = "mvqq.html?vid=" + $location.search().vid;

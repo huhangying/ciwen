@@ -129,6 +129,19 @@ module.exports = {
 
     db.queryCommand(res, queryString);
   },
+
+  // 为某个视频投一票
+  increaseVote: function(req, res, next){
+    var queryString = '';
+    if(req.params.id > 0){
+      queryString = 'update video set vote=vote+1 where id=' + req.params.id;
+    }
+    else {
+      res.send('{"return":"error"}');
+      return;
+    }
+    db.queryCommand(res, queryString);
+  },
 }
 
 
