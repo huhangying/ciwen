@@ -5,6 +5,7 @@ angular.module('starter.controllers', ['ngCordova'])
 
   .controller('HomeCtrl', function($scope,$http) {
     //$cordovaProgress.showAnnular(true, 50000);
+    $scope.title = '<img src="img/logo.png" alt="首页" height="40px" />'
 
     $http.get('http://182.92.230.67:3000/api/game88').then(function(response){
       $scope.data = JSON.stringify(response.data);
@@ -175,6 +176,16 @@ angular.module('starter.controllers', ['ngCordova'])
         $scope.videos = response.data;
       });
     };
+    $scope.voteIt = function(id){
+      $http.get('http://182.92.230.67:3300/video/vote/' + id).then(function(response) {
+        if (response.data.return == 'error'){
+          //$cordovaToast.showShortCenter('视频不存在');
+          return;
+        }
+        //$scope.video.vote += 1;
+        $cordovaToast.showShortCenter('谢谢支持！');
+      })
+    }
 
 
   })

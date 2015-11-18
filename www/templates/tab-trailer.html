@@ -11,17 +11,14 @@
         </label>
       </div>
 
-      <ion-item class="item-remove-animate item-image item-icon-right" ng-repeat="video in videos"
+      <ion-item class="item-remove-animate" ng-repeat="video in videos"
                 type="item-text-wrap" href="#">
-        <img ng-src="{{video.screenshot}}">
+        <img ng-src="{{video.screenshot}}" width="100%">
         <h2>【视频标题】{{video.name}}</h2>
         <p>【作者名】{{video.author}}</p>
         <p>{{video.content}}</p>
-        <div class="text-center">
-          <i class='button button-light button-small' style="padding: 0 50px;">下载</i>
-        </div>
 
-        <i class="icon ion-chevron-right icon-accessory"></i>
+        <!--<i class="icon ion-chevron-right icon-accessory"></i>-->
         <ion-option-button class="button-assertive" ng-click="share(video)">
           下载
         </ion-option-button>

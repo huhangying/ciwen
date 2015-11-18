@@ -11,23 +11,29 @@
       </ion-item>
     </ion-list>
     <ion-list>
-        <ion-toggle  ng-model="settings.enableRotation">
-          允许屏幕旋转
-        </ion-toggle>
+      <ion-toggle  ng-model="settings.enableRotation">
+        允许屏幕旋转
+      </ion-toggle>
     </ion-list>
     <ion-list>
       <h4 class="title padding-left">我的投票记录</h4>
       <div class="list card" ng-repeat="video in videos">
         <div class="item item-image">
           <img src="{{video.screenshot}}" width="50%">
-          <h2 class="energized">【投票数】{{video.vote}}</h2>
-          <p>【视频名】{{video.name}}</p>
+          <div class="row">
+            <div class="col col-60">
+              【视频名】{{video.name}}
+            </div>
+            <div class="col col-40">
+              <h2 class="energized">【投票数】{{video.vote}}</h2>
+            </div>
+          </div>
         </div>
       </div>
     </ion-list>
 
     <div class="text-center" ng-click="logout()">
-        <i class="button button-balanced button-full">退出登录&nbsp;&nbsp;</i>
+      <i class="button button-balanced button-full">退出登录&nbsp;&nbsp;</i>
     </div>
 
   </ion-content>
