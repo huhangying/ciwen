@@ -20,14 +20,14 @@
       <div class="list card" ng-repeat="video in videos">
         <div class="item item-image">
           <img src="{{video.screenshot}}" width="50%">
-          <h2 class="energized">{{video.vote}}</h2>
-          <p>{{video.name}}</p>
+          <h2 class="energized">【投票数】{{video.vote}}</h2>
+          <p>【视频名】{{video.name}}</p>
         </div>
       </div>
     </ion-list>
 
-    <div class="bar bar-balanced text-center" ng-click="logout()">
-        <i class="button button-clear pull-right padding-right">退出登录&nbsp;&nbsp;</i>
+    <div class="text-center" ng-click="logout()">
+        <i class="button button-balanced button-full">退出登录&nbsp;&nbsp;</i>
     </div>
 
   </ion-content>

@@ -13,13 +13,13 @@
 
       <ion-item class="item-remove-animate item-image item-icon-right" ng-repeat="video in videos"
                 type="item-text-wrap" href="#/video/{{video.id}}?id={{video.id}}&vid={{video.url}}">
-        <img ng-src="{{video.screenshot}}">
+        <img ng-src="{{video.screenshot}}" width="100%" height="150">
         <h2>{{video.name}}</h2>
         <p>{{video.content}}</p>
         <i class="icon ion-chevron-right icon-accessory"></i>
 
         <ion-option-button class="button-assertive" ng-click="remove(video)">
-          Delete
+          删除
         </ion-option-button>
       </ion-item>
     </ion-list>

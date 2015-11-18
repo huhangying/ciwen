@@ -19,7 +19,7 @@ angular.module('starter.services', [])
       img: 'img/adam.jpg'
     }, {
       id: '4',
-      name: '其他',
+      name: '其他视频测试',
       desc: '',
       img: 'img/adam.jpg'
     }];

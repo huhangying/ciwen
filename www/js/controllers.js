@@ -10,6 +10,19 @@ angular.module('starter.controllers', ['ngCordova'])
       $scope.data = JSON.stringify(response.data);
       //alert($scope.data);
     });
+
+    $scope.videoHeight = function(){
+      var winWidth = 0;
+      if (window.innerWidth)
+        winWidth = window.innerWidth;
+      else if ((document.body) && (document.body.clientWidth))
+        winWidth = document.body.clientWidth;
+      if (document.documentElement && document.documentElement.clientHeight && document.documentElement.clientWidth)
+      {
+        winWidth = document.documentElement.clientWidth;
+      }
+      return winWidth * 10 / 16;
+    }
   })
   .controller('SignInCtrl', function($scope, $state, $http,$cordovaToast,$rootScope) {
     //初始化 手机号和密码 for test
@@ -174,7 +187,7 @@ angular.module('starter.controllers', ['ngCordova'])
     else{
       $http.get('http://182.92.230.67:3300/video/' + id).then(function(response) {
         if (response.data.return == 'empty') {
-          $cordovaToast.showShortCenter('视频不存在');
+          //$cordovaToast.showShortCenter('视频不存在');
           return;
         }
         $scope.video = response.data[0];
