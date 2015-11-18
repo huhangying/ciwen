@@ -59,6 +59,10 @@ angular.module('starter.controllers', ['ngCordova'])
           localStorage['authorized'] = 'yes';
           //localStorage['previous_state'] = '';//TrackPreviousState.getPrevious();
 
+          // 如果状态是播放视频页，改到视频分类页（因为视频页带参数）
+          if ($rootScope.previousState == 'tab.video-detail')
+            $rootScope.previousState = 'tab.cat';
+
           $state.go($rootScope.previousState != '' ? $rootScope.previousState : 'tab.home'); // 回到要求鉴权的页面
         }
         else{
@@ -191,33 +195,20 @@ angular.module('starter.controllers', ['ngCordova'])
           return;
         }
         $scope.video = response.data[0];
-        //alert(JSON.stringify($scope.video));
       });
     }
 
     $scope.videoHeight = function(){
       var winWidth = 0;
-      //var winHeight = 0;
-
       //获取窗口宽度
       if (window.innerWidth)
         winWidth = window.innerWidth;
       else if ((document.body) && (document.body.clientWidth))
         winWidth = document.body.clientWidth;
-      //获取窗口高度
-      //if (window.innerHeight)
-      //  winHeight = window.innerHeight;
-      //else if ((document.body) && (document.body.clientHeight))
-      //  winHeight = document.body.clientHeight;
       //通过深入Document内部对body进行检测，获取窗口大小
-      if (document.documentElement && document.documentElement.clientHeight && document.documentElement.clientWidth)
-      {
-        //winHeight = document.documentElement.clientHeight;
+      if (document.documentElement && document.documentElement.clientHeight && document.documentElement.clientWidth){
         winWidth = document.documentElement.clientWidth;
       }
-      //结果输出至两个文本框
-      //document.form1.availHeight.value= winHeight;
-      //document.form1.availWidth.value= winWidth;
       return winWidth * 10 / 16;
     }
 

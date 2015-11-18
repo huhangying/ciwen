@@ -70,6 +70,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','n
         }
       })
 
+      .state('tab.video-detail', {
+        url: '/video/:vid',
+        views: {
+          'tab-video': {
+            templateUrl: 'templates/video.html',
+            controller: 'VideoDetailCtrl'
+          }
+        }
+      })
+
       .state('tab.trailer', {
         url: '/trailer',
         views: {
@@ -103,11 +113,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','n
       .state('forgotpassword', {
         url: '/forgot-password',
         templateUrl: 'templates/forgot-password.html'
-      })
-      .state('video-detail', {
-        url: '/video/:vid',
-        templateUrl: 'templates/video.html',
-        controller: 'VideoDetailCtrl'
       });
 
     // if none of the above states are matched, use this as the fallback
