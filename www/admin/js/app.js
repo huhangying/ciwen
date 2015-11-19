@@ -46,24 +46,24 @@ app.directive("edit",function($document){
 var updateVideo = function(ngModel){
  alert(Object.toParams(ngModel.$modelValue));
 
-  //alert("更新");
-  //$http.put('http://182.92.230.67:3300/video/update',
-  //  //ngModel.$modelValue,{
-  //  Object.toParams(ngModel.$modelValue),{
-  //    dataType: 'json',
-  //    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-  //  })
-  //  .success(function(data, status, headers, config){
-  //    if (response.data.return == 'empty'){
-  //      alert('没有视频数据');
-  //    }
-  //    else {
-  //      $scope.videos = response.data;
-  //    }
-  //  })
-  //  .error(function(data,status, headers, config){
-  //    console.log('insert video error');
-  //  });
+  alert("更新");
+  $http.put('http://182.92.230.67:3300/video/update',
+    //ngModel.$modelValue,{
+    Object.toParams(ngModel.$modelValue),{
+      dataType: 'json',
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    })
+    .success(function(data, status, headers, config){
+      if (response.data.return == 'empty'){
+        alert('没有视频数据');
+      }
+      else {
+        $scope.videos = response.data;
+      }
+    })
+    .error(function(data,status, headers, config){
+      console.log('insert video error');
+    });
 }
 
 
@@ -103,6 +103,8 @@ app.directive("cancel",function($document){
         obj.addClass("inactive");
         obj.prop("readOnly",true);
         scope.$apply(function(){
+          updateVideo(ngModel);
+          alert('dd');
           scope.showEdit = true;
         })
       })

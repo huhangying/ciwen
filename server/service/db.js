@@ -2,14 +2,41 @@
  * Created by hhu on 2015/11/13.
  */
 var mysql = require('mysql');
-var conn = mysql.createConnection({
+global.conn = mysql.createConnection({
   host: '182.92.230.67',
   port: 3306,
   user: 'root',
   password: 'as#$#23REE2e',
   database: 'ciwen'
 });
-conn.connect();
+var connectionState = false;
+function connectMySql(){
+  conn.connect(function(err){
+    if(err){
+      console.log('SQL connect err:'+err);
+      connectionState = false;
+    }
+    else{
+      console.log('SQL connect successful!');
+      connectionState = true;
+    }
+  });
+  conn.on('close', function (err) {
+    console.log('mysqldb conn close');
+    connectionState = false;
+  });
+  conn.on('error', function (err) {
+    console.log('mysqldb error: ' + err);
+    connectionState = false;
+  });
+}
+connectMySql();
+var dbConnChecker = setInterval(function(){
+  if(!connectionState){
+    connectMySql();
+  }
+},2000);
+
 
 var Q = require('q');
 

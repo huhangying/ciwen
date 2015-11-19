@@ -7,10 +7,6 @@ angular.module('starter.controllers', ['ngCordova'])
     //$cordovaProgress.showAnnular(true, 50000);
     $scope.title = '<img src="img/logo.png" alt="首页" height="40px" />'
 
-    $http.get('http://182.92.230.67:3000/api/game88').then(function(response){
-      $scope.data = JSON.stringify(response.data);
-      //alert($scope.data);
-    });
 
     $scope.videoHeight = function(){
       var winWidth = 0;
@@ -25,6 +21,7 @@ angular.module('starter.controllers', ['ngCordova'])
       return winWidth * 10 / 16;
     }
   })
+
   .controller('SignInCtrl', function($scope, $state, $http,$cordovaToast,$rootScope) {
     //初始化 手机号和密码 for test
     $scope.user ={cell: "15601811217", password: "111111", authorized: false};
@@ -176,6 +173,7 @@ angular.module('starter.controllers', ['ngCordova'])
         $scope.videos = response.data;
       });
     };
+
     $scope.voteIt = function(id){
       $http.get('http://182.92.230.67:3300/video/vote/' + id).then(function(response) {
         if (response.data.return == 'error'){
@@ -187,15 +185,19 @@ angular.module('starter.controllers', ['ngCordova'])
       })
     }
 
-
   })
 
   // 视频 控制模块
-  .controller('VideoDetailCtrl', function($scope, $stateParams, Videos,$location, $state,$http,$cordovaToast) {
+  .controller('VideoDetailCtrl', function($scope, $stateParams, Videos,$location, $state,$http,$cordovaToast,$ionicLoading) {
+
     if (window.localStorage['authorized'] != 'yes'){
       $state.go('signin');
       return;
     }
+
+    $ionicLoading.show({
+      template: 'Loading...'
+    });
     var id = $location.search().id;
     if (id == '4')
       $scope.video = Videos.get($stateParams.vid);
@@ -208,6 +210,7 @@ angular.module('starter.controllers', ['ngCordova'])
         $scope.video = response.data[0];
       });
     }
+    $ionicLoading.hide();
 
     $scope.videoHeight = function(){
       var winWidth = 0;
