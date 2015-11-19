@@ -12,8 +12,10 @@ app.controller('adminCtrl', function($scope, $http) {
       if (response.data.return == 'empty'){
         alert('没有视频数据');
       }
-      else
+      else{
         $scope.videos = response.data;
+        $scope.http = $http;
+      }
     });
   $scope.showEdit = true;
   $scope.master = {};
@@ -43,11 +45,12 @@ app.directive("edit",function($document){
   }
 });
 
-var updateVideo = function(ngModel){
- alert(Object.toParams(ngModel.$modelValue));
+var updateVideo = function(ngModel,$http){
+  //ngModel.$modelValue.content = '';
+ //alert(Object.toParams(ngModel.$modelValue));
 
-  alert("更新");
-  $http.put('http://182.92.230.67:3300/video/update',
+  //alert("更新");
+  $http.put('http://182.92.230.67:3300/video',
     //ngModel.$modelValue,{
     Object.toParams(ngModel.$modelValue),{
       dataType: 'json',
@@ -71,7 +74,7 @@ app.directive("update",function($document){
   return{
     restrict: 'AE',
     require: 'ngModel',
-    link: function(scope,element,attrs,ngModel,$http){
+    link: function(scope,element,attrs,ngModel,http){
       element.bind("click",function(){
         var classid = "class" + ngModel.$modelValue.id;
         var obj = $("."+classid);
@@ -79,6 +82,7 @@ app.directive("update",function($document){
         obj.addClass("inactive");
         obj.attr("readOnly",true);
         scope.$apply(function(){
+          updateVideo(ngModel,scope.http);
           scope.showEdit = true;
         })
       })

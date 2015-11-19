@@ -2,19 +2,20 @@
  * Created by hhu on 2015/11/13.
  */
 var mysql = require('mysql');
-global.conn = mysql.createConnection({
-  host: '182.92.230.67',
-  port: 3306,
-  user: 'root',
-  password: 'as#$#23REE2e',
-  database: 'ciwen'
-});
 var connectionState = false;
 function connectMySql(){
+  global.conn = mysql.createConnection({
+    host: '182.92.230.67',
+    port: 3306,
+    user: 'root',
+    password: 'as#$#23REE2e',
+    database: 'ciwen'
+  });
   conn.connect(function(err){
     if(err){
       console.log('SQL connect err:'+err);
       connectionState = false;
+      conn.end();
     }
     else{
       console.log('SQL connect successful!');
@@ -24,15 +25,18 @@ function connectMySql(){
   conn.on('close', function (err) {
     console.log('mysqldb conn close');
     connectionState = false;
+    conn.end();
   });
   conn.on('error', function (err) {
     console.log('mysqldb error: ' + err);
     connectionState = false;
+    conn.end();
   });
 }
 connectMySql();
 var dbConnChecker = setInterval(function(){
   if(!connectionState){
+    // 重连
     connectMySql();
   }
 },2000);
@@ -47,7 +51,6 @@ module.exports = {
     conn.query(cmd, function (err, rows, fields) {
       if (err) {
         console.log("error: " + err.stack);
-        conn.end();
         return -1;
       }
 
@@ -63,7 +66,6 @@ module.exports = {
     conn.query(cmd, function (err, rows, fields) {
       if (err) {
         console.log("error: " + err.stack);
-        conn.end();
         return -1;
       }
 
@@ -81,10 +83,15 @@ module.exports = {
     conn.query(cmd, function (err, rows, fields) {
       if (err) {
         console.log("error: " + err.stack);
-        conn.end();
+        return -1;
       }
       //console.log(JSON.stringify(rows));
       //console.log(rows.length);
+      if (rows == undefined){
+        res.send('{"return": "error"}');
+        return;
+      }
+
       if (rows.length > 0)
         res.send(rows);
       else

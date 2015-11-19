@@ -5,7 +5,7 @@
   <title>视频管理后台</title>
   <script>document.write('<base href="' + document.location + '" />');</script>
 
-  <script data-require="angular.js@1.2.x" src="js/angular.min.js" data-semver="1.2.13"></script>
+  <script src="js/angular.min.js"></script>
 
   <script src="http://cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
   <script src="http://cdn.bootcss.com/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.min.js"></script>
@@ -53,7 +53,7 @@
     <td>
       <div class="form-group" style="width:120px;">
       <edit ng-Model="video" ng-show="showEdit"><a class="btn btn-info btn-xs">编辑</a></edit>
-      <update ng-Model="video" ng-show="!showEdit"><a class="btn btn-info btn-xs" onclick="updateVideo(ngModel)">更新</a></update>
+      <update ng-Model="video" ng-show="!showEdit"><a class="btn btn-info btn-xs" >更新</a></update>
       <cancel ng-Model="video" ng-show="!showEdit"><a class="btn btn-default btn-xs">取消</a></cancel>
       <delete ng-Model="video"><a class="btn btn-default btn-xs">删除</a></delete>
       </div>

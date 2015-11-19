@@ -44,9 +44,10 @@ router.route('/cat')
   .put(Videos.updateCatOne);
 router.route('/cat/:id')
   .get(Videos.getVideosByCatId);
-router.route('/video/update').put(urlencodedParser, Videos.updateVideo);
-router.route('/video').get(Videos.getVideoList);
-router.route('/video/add').post(Videos.createVideo);
+router.route('/video')
+  .put(urlencodedParser, Videos.updateVideo)
+  .get(Videos.getVideoList)
+  .post(Videos.createVideo);
 router.route('/video/:id').get(Videos.getVideoById);
 router.route('/video/vote/:id').get(Videos.increaseVote);
 

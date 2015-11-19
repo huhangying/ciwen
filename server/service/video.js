@@ -101,8 +101,8 @@ module.exports = {
     //
     var queryString = '';
     queryString = 'insert into video (cat_id, name, content, author, url, dl_url, updated, vote, sort, apply) ' +
-      'VALUES ('+ video.cat_id + '\',\'' + video.name + '\',\'' + video.conent + '\',\'' + video.author + '\',\'' + video.url + '\',\'' +
-      video.dl_url +'\',' +  moment().format() + ',' +  video.vote + ',' + video.sort + ',1)';
+      'VALUES ('+ video.cat_id + ',\'' + video.name + '\',\'' + video.conent + '\',\'' + video.author + '\',\'' + video.url + '\',\'' +
+      video.dl_url +'\',\'' +  moment().format() + '\',' +  video.vote + ',' + video.sort + ',1)';
      console.log(queryString);
 
      db.queryCommand(res, queryString);
@@ -122,9 +122,8 @@ module.exports = {
 
     //
     var queryString = '';
-    queryString = 'update video (cat_id, name, content, author, url, dl_url, updated, vote, sort, apply) ' +
-      'VALUES ('+ video.cat_id + '\',\'' + video.name + '\',\'' + video.conent + '\',\'' + video.author + '\',\'' + video.url + '\',\'' +
-      video.dl_url +'\',' +  moment().format() + ',' +  video.vote + ',' + video.sort + ',1) where id=' + video.id ;
+    queryString = 'update video set name=\''+ video.name + '\',content=\'' + video.content + '\',author=\'' + video.author
+      + '\',url=\'' + video.url +'\',dl_url=\'' + video.dl_url + '\',updated=\'' +  moment().format() + '\' where id=' + video.id ;
     console.log(queryString);
 
     db.queryCommand(res, queryString);
