@@ -5,6 +5,7 @@ var mysql = require('mysql');
 var connectionState = false;
 function connectMySql(){
   global.conn = mysql.createConnection({
+    //host: 'localhost',
     host: '182.92.230.67',
     port: 3306,
     user: 'root',
@@ -77,6 +78,22 @@ module.exports = {
       return rows.length;
     });
   },
+  //insertCommand：返回数据库操作结果: 新 ID
+  //insertCommand: function (res, cmd) {
+  //  conn.query(cmd, function (err, rows, fields) {
+  //    if (err) {
+  //      console.log("error: " + err.stack);
+  //      return -1;
+  //    }
+  //
+  //    //console.log(JSON.stringify(rows));
+  //    if (rows.length > 0)
+  //      res.send(rows.length);
+  //    else
+  //      res.send('{"return": "empty"}');
+  //    return rows.length;
+  //  });
+  //},
   //getCommand：返回一条表查询数据
   getCommand: function (res, cmd) {
     //console.log(cmd);

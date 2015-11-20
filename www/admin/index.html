@@ -3,64 +3,145 @@
 <head>
   <meta charset="utf-8" />
   <title>视频管理后台</title>
-  <script>document.write('<base href="' + document.location + '" />');</script>
 
+  <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/mycss.css" />
   <script src="js/angular.min.js"></script>
-
   <script src="http://cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
   <script src="http://cdn.bootcss.com/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.min.js"></script>
   <script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   <script src="js/app.js"></script>
-  <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/mycss.css" />
+  <script src="js/controllers.js"></script>
 </head>
 
 <body ng-controller="adminCtrl">
-<h2>视频管理</h2>
-<!--<input id="test" value="ddd"/>-->
-<form class="form-inline">
-<table class="table table-striped table-condensed table-hover table-responsive">
-  <tr class="info row">
-    <th>标题</th>
-    <th>内容</th>
-    <th>作者</th>
-    <th>视频链接</th>
-    <th>下载链接</th>
-    <th>票数</th>
-    <th></th>
-  </tr>
-  <tr ng-repeat="video in videos" class="row">
-    <td>
-      <input type="hidden" name="value" ng-model="video.id" >
-      <input type="hidden" name="value" ng-model="video.cat_id" >
-      <input type="text" class='class{{video.id}} form-control' ng-model="video.name" class="inactive" readonly />
-    </td>
-    <td>
-      <input type="text" class='class{{video.id}} form-control' ng-model="video.content" class="inactive" readonly />
-    </td>
-    <td>
-      <input type="text" class='class{{video.id}} form-control' ng-model="video.author" class="inactive" readonly />
-    </td>
-    <td>
-      <input type="text" class='class{{video.id}} form-control' ng-model="video.url" class="inactive" readonly />
-    </td>
-    <td>
-      <input type="text" class='class{{video.id}} form-control' ng-model="video.dl_url" class="inactive" readonly />
-    </td>
-    <td>
-      <label class="form-control" ng-model="video.vote">{{video.vote}}</label>
-    </td>
-    <td>
-      <div class="form-group" style="width:120px;">
-      <edit ng-Model="video" ng-show="showEdit"><a class="btn btn-info btn-xs">编辑</a></edit>
-      <update ng-Model="video" ng-show="!showEdit"><a class="btn btn-info btn-xs" >更新</a></update>
-      <cancel ng-Model="video" ng-show="!showEdit"><a class="btn btn-default btn-xs">取消</a></cancel>
-      <delete ng-Model="video"><a class="btn btn-default btn-xs">删除</a></delete>
+<div class="container-fluid">
+  <h2>视频管理</h2>
+
+  <div class="row">
+    <div class="col col-sm-10">
+      选择视频分类：
+      <select class="padding" ng-model="optionCat" ng-options="cat.id as cat.name for cat in cats">
+      </select>
+    </div>
+    <div class="col col-sm-2">
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addVideo">
+        新建视频
+      </button>
+    </div>
+  </div>
+
+  <form>
+    <table class="table table-striped table-condensed table-hover table-responsive">
+      <tr class="info row">
+        <th>标题</th>
+        <th>内容</th>
+        <th>作者</th>
+        <th>视频截图</th>
+        <th>视频链接</th>
+        <th>下载链接</th>
+        <th>票数</th>
+        <th></th>
+      </tr>
+      <tr ng-repeat="video in videos | filter : {cat_id : optionCat}" class="row">
+        <td>
+          <input type="hidden" name="value" ng-model="video.id" >
+          <input type="hidden" name="value" ng-model="video.cat_id" >
+          <input type="text" class='class{{video.id}} form-control' ng-model="video.name" class="inactive" readonly />
+        </td>
+        <td>
+          <input type="text" class='class{{video.id}} form-control' ng-model="video.content" class="inactive" readonly />
+        </td>
+        <td>
+          <input type="text" class='class{{video.id}} form-control' ng-model="video.author" class="inactive" readonly />
+        </td>
+        <td>
+          <input type="text" class='class{{video.id}} form-control' ng-model="video.screenshot" class="inactive" readonly />
+        </td>
+        <td>
+          <input type="text" class='class{{video.id}} form-control' ng-model="video.url" class="inactive" readonly />
+        </td>
+        <td>
+          <input type="text" class='class{{video.id}} form-control' ng-model="video.dl_url" class="inactive" readonly />
+        </td>
+        <td>
+          <label class="form-control" ng-model="video.vote">{{video.vote}}</label>
+        </td>
+        <td>
+          <div class="form-group" style="width:120px;">
+            <edit ng-Model="video" ng-show="showEdit"><a class="btn btn-info btn-xs">编辑</a></edit>
+            <update ng-Model="video" ng-show="!showEdit"><a class="btn btn-info btn-xs" >更新</a></update>
+            <cancel ng-Model="video" ng-show="!showEdit"><a class="btn btn-default btn-xs">取消</a></cancel>
+            <delete ng-Model="video"><a class="btn btn-default btn-xs">删除</a></delete>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </form>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="addVideo" tabindex="-1" role="dialog" aria-labelledby="addVideoTitle">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="addVideoTitle">新建视频</h4>
       </div>
-    </td>
-  </tr>
-</table>
-</form>
+      <form class="form-horizontal" style="padding:0 10px;">
+        <div class="form-group">
+          <label for="addCat" class="col-sm-2 control-label">视频分类</label>
+          <div class="col-sm-10" style="padding-top:10px;">
+            <select id="addCat" class="padding" ng-model="add.cat_id" ng-model="addOptionCat"
+                    ng-options="cat.id as cat.name for cat in cats">
+            </select>
+            <em class="danger">必选</em>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="addName" class="col-sm-2 control-label">标题</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="addName" placeholder="标题" ng-model="add.name">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="addContent" class="col-sm-2 control-label">内容</label>
+          <div class="col-sm-10">
+            <textarea rows="3" class="form-control" id="addContent" placeholder="内容" ng-model="add.content"></textarea>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="addAuthor" class="col-sm-2 control-label">作者</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="addAuthor" placeholder="作者" ng-model="add.author">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="addScreenshot" class="col-sm-2 control-label">视频截图</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="addScreenshot" placeholder="视频截图URL" ng-model="add.screenshot">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="addUrl" class="col-sm-2 control-label">播放URL</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="addUrl" placeholder="播放URL" ng-model="add.url">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="addDlUrl" class="col-sm-2 control-label">下载URL</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="addDlUrl" placeholder="下载URL" ng-model="add.dl_url">
+          </div>
+        </div>
+      </form>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">退出</button>
+        <add ng-Model="add"><a class="btn btn-primary">创建</a></add>
+      </div>
+    </div>
+  </div>
+</div>
+
 </body>
 
 </html>

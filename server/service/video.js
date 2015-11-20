@@ -100,9 +100,9 @@ module.exports = {
 
     //
     var queryString = '';
-    queryString = 'insert into video (cat_id, name, content, author, url, dl_url, updated, vote, sort, apply) ' +
-      'VALUES ('+ video.cat_id + ',\'' + video.name + '\',\'' + video.conent + '\',\'' + video.author + '\',\'' + video.url + '\',\'' +
-      video.dl_url +'\',\'' +  moment().format() + '\',' +  video.vote + ',' + video.sort + ',1)';
+    queryString = 'insert into video (cat_id, name, content, author, screenshot, url, dl_url, updated, vote, sort, apply) ' +
+      'VALUES ('+ video.cat_id + ',\'' + video.name + '\',\'' + video.content + '\',\'' + video.author + '\',\'' + video.screenshot + '\',\''
+      + video.url + '\',\'' +  video.dl_url +'\',\'' +  moment().format() + '\',' +  video.vote + ',' + video.sort + ',1)';
      console.log(queryString);
 
      db.queryCommand(res, queryString);
@@ -123,9 +123,23 @@ module.exports = {
     //
     var queryString = '';
     queryString = 'update video set name=\''+ video.name + '\',content=\'' + video.content + '\',author=\'' + video.author
-      + '\',url=\'' + video.url +'\',dl_url=\'' + video.dl_url + '\',updated=\'' +  moment().format() + '\' where id=' + video.id ;
-    console.log(queryString);
+      + '\',screenshot=\'' + video.screenshot + '\',url=\'' + video.url +'\',dl_url=\'' + video.dl_url + '\',updated=\''
+      +  moment().format() + '\',vote=' + video.vote + ' where id=' + video.id ;
+    //console.log(queryString);
 
+    db.queryCommand(res, queryString);
+  },
+
+  deleteVideo: function(req, res, next){
+    var queryString = '';
+    if (req.params.id > 0){
+      queryString = 'delete from video where id=' + req.params.id;
+      console.log(queryString);
+    }
+    else {
+      res.send('{"return": "paramError"}');
+      return;
+    }
     db.queryCommand(res, queryString);
   },
 

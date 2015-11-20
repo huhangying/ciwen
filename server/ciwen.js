@@ -46,16 +46,17 @@ router.route('/cat/:id')
   .get(Videos.getVideosByCatId);
 router.route('/video')
   .put(urlencodedParser, Videos.updateVideo)
-  .get(Videos.getVideoList)
-  .post(Videos.createVideo);
-router.route('/video/:id').get(Videos.getVideoById);
+  .post(urlencodedParser, Videos.createVideo)
+  .get(Videos.getVideoList);
+router.route('/video/:id')
+  .get(Videos.getVideoById)
+  .delete(Videos.deleteVideo);
 router.route('/video/vote/:id').get(Videos.increaseVote);
-
 
 app.use('/', router);
 
 
 // 启动服务器
 http.createServer(app).listen(3300,function(){
-  console.log("CIWEN server is started. listening port: 3300...")
+  console.log("CIWEN 服务器开启. 监听端口: 3300...")
 });
