@@ -16,7 +16,7 @@ module.exports = {
   // 获取一个分类
   getCatOne: function(req, res, next){
     var queryString = '';
-    if (req.params.id > 0){
+    if (req.params && req.params.id > 0){
       queryString = 'select * from cat where id=' + req.params.id;
     }
     else{
@@ -28,7 +28,7 @@ module.exports = {
   //创建分类
   createCatOne: function(req, res, next){
     var queryString = '';
-    if (req.params.name != ''){
+    if (req.params && req.params.name != ''){
       queryString = 'insert into cat set name=\''+ req.params.name +'\',desc=\'' + req.params.desc
         +'\',password=\'' + req.params.password + '\',register_date=' + date() + ',from=\'\', apply=1';
       db.queryCommand(res, queryString);
@@ -49,7 +49,7 @@ module.exports = {
     }
     else{
       //找不到用户或参数错误
-      res.send('');
+      res.send('{"return":"error"}');
     }
   },
 
@@ -65,7 +65,7 @@ module.exports = {
   // 根据CatId查看视频列表
   getVideosByCatId: function(req, res, next){
     var queryString = '';
-    if (req.params.id > 0){
+    if (req.params && req.params.id > 0){
       queryString = 'select * from video where apply=1 and cat_id=' + req.params.id;
     }
     else {
@@ -77,7 +77,7 @@ module.exports = {
   // 查看单个视频
   getVideoById: function(req, res, next){
     var queryString = '';
-    if(req.params.id > 0){
+    if(req.params && req.params.id > 0){
       queryString = 'select * from video where apply=1 and id=' + req.params.id;
     }
     else {
@@ -96,6 +96,7 @@ module.exports = {
     //验证分类ID
     if (video.cat_id < 1){
       res.send('{"return": "paramError"}');
+      return;
     }
 
     //
@@ -103,13 +104,13 @@ module.exports = {
     queryString = 'insert into video (cat_id, name, content, author, screenshot, url, dl_url, updated, vote, sort, apply) ' +
       'VALUES ('+ video.cat_id + ',\'' + video.name + '\',\'' + video.content + '\',\'' + video.author + '\',\'' + video.screenshot + '\',\''
       + video.url + '\',\'' +  video.dl_url +'\',\'' +  moment().format() + '\',' +  video.vote + ',' + video.sort + ',1)';
-     console.log(queryString);
+     //console.log(queryString);
 
      db.queryCommand(res, queryString);
   },
 
   updateVideo: function(req, res, next){
-    console.log('update video');
+    //console.log('update video');
 
     // 获取user数据（json）
     var video = req.body;
@@ -118,6 +119,7 @@ module.exports = {
     //验证分类ID
     if (video.cat_id < 1){
       res.send('{"return": "paramError"}');
+      return;
     }
 
     //
@@ -132,28 +134,27 @@ module.exports = {
 
   deleteVideo: function(req, res, next){
     var queryString = '';
-    if (req.params.id > 0){
+    if (req.params && req.params.id > 0){
       queryString = 'delete from video where id=' + req.params.id;
-      console.log(queryString);
+      //console.log(queryString);
+      db.queryCommand(res, queryString);
     }
     else {
       res.send('{"return": "paramError"}');
-      return;
     }
-    db.queryCommand(res, queryString);
+
   },
 
   // 为某个视频投一票
   increaseVote: function(req, res, next){
     var queryString = '';
-    if(req.params.id > 0){
+    if(req.params && req.params.id > 0){
       queryString = 'update video set vote=vote+1 where id=' + req.params.id;
+      db.queryCommand(res, queryString);
     }
     else {
       res.send('{"return":"error"}');
-      return;
     }
-    db.queryCommand(res, queryString);
   },
 }
 

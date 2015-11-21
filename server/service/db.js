@@ -55,7 +55,7 @@ module.exports = {
         return -1;
       }
 
-      if (rows.length > 0)
+      if (rows && rows.length > 0)
         res.send(rows);
       else
         res.send('{"return": "empty"}');
@@ -71,7 +71,7 @@ module.exports = {
       }
 
       //console.log(JSON.stringify(rows));
-      if (rows.length > 0)
+      if (rows && rows.length > 0)
         res.send(rows.length);
       else
         res.send('{"return": "empty"}');
@@ -102,14 +102,8 @@ module.exports = {
         console.log("error: " + err.stack);
         return -1;
       }
-      //console.log(JSON.stringify(rows));
-      //console.log(rows.length);
-      if (rows == undefined){
-        res.send('{"return": "error"}');
-        return;
-      }
 
-      if (rows.length > 0)
+      if (rows && rows.length > 0)
         res.send(rows);
       else
         res.send('{"return": "empty"}');

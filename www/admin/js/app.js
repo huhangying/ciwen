@@ -6,8 +6,7 @@ app = angular.module('admin', ['ui.bootstrap']);
 var API_URL = 'http://182.92.230.67:3300';
 
 app.controller('adminCtrl', function($scope, $http) {
-  $scope.optionCat = 'Hello';
-
+  $scope.optionCat = '';
 
   $http.get(API_URL + '/cat')
     .then(function(response){
@@ -16,7 +15,7 @@ app.controller('adminCtrl', function($scope, $http) {
       }
       else{
         $scope.cats = response.data;
-        if ($scope.cats != undefined && $scope.cats.length > 0){
+        if ($scope.cats && $scope.cats.length > 0){
           $scope.optionCat = $scope.cats[0].id;
         }
       }
@@ -44,7 +43,7 @@ app.directive("add",function($document){
           //  alert('请选择视频类别！');
           //  return;
           //}
-          if (video.name == undefined){
+          if (!video.name){
             alert('标题不能为空');
             return;
           }

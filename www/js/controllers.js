@@ -92,7 +92,7 @@ angular.module('starter.controllers', ['ngCordova'])
     var user = $scope.user;
     $scope.register = function(user) {
 
-      if (user.cell == '') {
+      if (!user.cell) {
         $cordovaToast.showShortCenter('手机号不能为空');
         return;
       }
@@ -100,11 +100,11 @@ angular.module('starter.controllers', ['ngCordova'])
         $cordovaToast.showShortCenter('手机号不合法');
         return;
       }
-      if (user.name == '') {
+      if (!user.name) {
         $cordovaToast.showShortCenter('用户名不能为空');
         return;
       }
-      if (user.password == '') {
+      if (!user.password) {
         $cordovaToast.showShortCenter('密码不能为空');
         return;
       }
@@ -256,7 +256,7 @@ angular.module('starter.controllers', ['ngCordova'])
 
   .controller('AccountCtrl', function($scope, $state,$rootScope,$http,$cordovaToast) {
 
-    if (localStorage['authorized'] == undefined || localStorage['authorized'] != 'yes'){
+    if (!localStorage['authorized'] || localStorage['authorized'] != 'yes'){
       $state.go('signin');
       return;
     }
@@ -266,7 +266,7 @@ angular.module('starter.controllers', ['ngCordova'])
     };
 
     $scope.cell = '';
-    if (localStorage['cell'] == '' || localStorage['cell'] == undefined)
+    if (!localStorage['cell'])
       $scope.user_name = '我未登录';
     else{
       $scope.user_name = localStorage['name'];

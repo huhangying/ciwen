@@ -22,7 +22,7 @@ module.exports = {
 
   checkId: function(req, res){
     var queryString = '';
-    if (req.params.id > 0){
+    if (req.params && req.params.id > 0){
       queryString = 'select * from user where id=' + req.params.id;
       //判断用户手机号是否被注册
       db.queryCommand(res, queryString);
@@ -37,7 +37,7 @@ module.exports = {
     if (!user) return res.sendStatus(400);
 
     //验证手机号码
-    if (user.cell == ''){
+    if (!user.cell){
       res.send('error');
     }
 
@@ -48,11 +48,11 @@ module.exports = {
     db.queryCommandWithoutSending(queryString)
       // 成功
       .then( function successHandler(row_number){
-          console.log(row_number);
+          //console.log(row_number);
           if (row_number < 1){ // 如果没有被注册，则创建一个新的
             queryString = 'insert into user set cell=\''+ user.cell + '\', user_name=\'' + user.name
             + '\',password=\'' + user.password + '\',register_date=\'' + moment().format() + '\', locked_count=0, apply=1';
-            console.log(queryString);
+            //console.log(queryString);
             db.queryCommand(res, queryString);
           }
           else
