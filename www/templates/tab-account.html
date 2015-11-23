@@ -1,7 +1,8 @@
 ﻿<ion-view cache-view="false" view-title="我的">
   <ion-content>
     <ion-list>
-      <ion-item class="item-remove-animate item-avatar item-icon-right">
+      <ion-item class="item-remove-animate item-avatar">
+      <!--<ion-item class="item-remove-animate item-avatar item-icon-right">-->
         <img ng-src="img/ben.png">
         <div class="text-right" style="display:block;float:right;">
           <a class="button button-light button-small" href="#">修改密码</a>
@@ -21,10 +22,10 @@
         <div class="item item-image">
           <img src="{{video.screenshot}}" width="50%">
           <div class="row">
-            <div class="col col-60">
+            <div class="col col-60 text-left">
               【视频名】{{video.name}}
             </div>
-            <div class="col col-40">
+            <div class="col col-40 text-right">
               <h2 class="energized">【投票数】{{video.vote}}</h2>
             </div>
           </div>

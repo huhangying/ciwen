@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href="http://vjs.zencdn.net/5.2.1/video-js.css" rel="stylesheet">
+
+  <!-- If you'd like to support IE8 -->
+  <script src="http://vjs.zencdn.net/ie8/1.1.0/videojs-ie8.min.js"></script>
+</head>
+
+<body>
+<video id="my-video" class="video-js" controls preload="auto" width="640" height="264"
+       poster="MY_VIDEO_POSTER.jpg" data-setup="{}">
+  <source src="http://product.geiliyou.com/ciwen/asset/video/test.mp4" type='video/mp4'>
+  <!--<source src="MY_VIDEO.webm" type='video/webm'>-->
+  <p class="vjs-no-js">
+    To view this video please enable JavaScript, and consider upgrading to a web browser that
+    <a href="rtsp://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+  </p>
+</video>
+
+<video width="320" height="240" controls="controls">
+  <source src="http://product.geiliyou.com/ciwen/asset/video/test.mp4" type="video/mp4" >示例视频1</source>
+  您的浏览器不支持video标签
+</video>
+
+<script src="rtsp://vjs.zencdn.net/5.2.1/video.js"></script>
+</body>
+</html>

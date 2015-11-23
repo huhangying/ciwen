@@ -9,7 +9,7 @@ module.exports = {
 
   //查看所有的分类列表
   getCatList: function(req, res, next){
-    var queryString = 'select * from cat where apply=1';
+    var queryString = 'select * from cat where apply=1 order by sort';
     db.findCommand(res, queryString);
   },
 

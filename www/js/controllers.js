@@ -110,16 +110,16 @@ angular.module('starter.controllers', ['ngCordova'])
       }
 
       $http.post('http://182.92.230.67:3300/user',Object.toParams(user), {
-          dataType: 'json',
-          headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-        })
-      //$http({
-      //    method: 'POST',
-      //    url: 'http://182.92.230.67:3300/user',
-      //    data: Object.toParams(user),
-      //    dataType: 'json',
-      //    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-      //  })
+        dataType: 'json',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+      })
+        //$http({
+        //    method: 'POST',
+        //    url: 'http://182.92.230.67:3300/user',
+        //    data: Object.toParams(user),
+        //    dataType: 'json',
+        //    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        //  })
         .success(function(data, status, headers, config){
           if (data.return == 'existed')
             $cordovaToast.showShortCenter('用户已经存在');
@@ -143,27 +143,26 @@ angular.module('starter.controllers', ['ngCordova'])
   })
 
   // 分类 控制模块
-  .controller('CatCtrl', function($scope,Videos, $state, $http,$cordovaToast) {
-    $scope.cats = Videos.catList();
-    $scope.optionCat = '4';
+  .controller('CatCtrl', function($scope,Videos, $state, $q,$http,$cordovaToast) {
 
-    $scope.videos = Videos.getBycatId($scope.optionCat);
+    // 构建页面数据
+    Videos.catList() // return a cats promise
+      .then(function(data){
+        $scope.cats = data;
+        if(!$scope.cats || $scope.cats.length < 1) return;
 
+        $scope.optionCat = $scope.cats[0].id;
+      },
+      function(data){ // error
+        $scope.cats = [];
+        $cordovaToast.showShortCenter('没有视频');
+        return;
+      });
 
-    $scope.selectAction = function(optionCat) {
-      if (optionCat == '4')
-        $scope.videos = Videos.getBycatId(optionCat);
-      else
-        this.getVideosByCatId(optionCat);
-    }
-
-    $scope.remove = function(video) {
-      Videos.remove(video);
-    };
 
     $scope.getVideosByCatId = function(catId) {
 
-       $http.get('http://182.92.230.67:3300/cat/'+ catId).then(function(response){
+      $http.get('http://182.92.230.67:3300/cat/'+ catId).then(function(response){
 
         if (response.data.return == 'empty'){
           $scope.videos = [];
@@ -173,6 +172,14 @@ angular.module('starter.controllers', ['ngCordova'])
         $scope.videos = response.data;
       });
     };
+
+    $scope.getVideosByCatId($scope.optionCat);
+
+    $scope.selectAction = function(optionCat) {
+      $scope.optionCat = optionCat;
+      // 获取视频列表
+      this.getVideosByCatId(optionCat);
+    }
 
     $scope.voteIt = function(id){
       $http.get('http://182.92.230.67:3300/video/vote/' + id).then(function(response) {
@@ -185,32 +192,34 @@ angular.module('starter.controllers', ['ngCordova'])
       })
     }
 
+    $scope.doRefresh = function(){
+      this.getVideosByCatId($scope.optionCat);
+
+      //Stop the ion-refresher from spinning
+      $scope.$broadcast('scroll.refreshComplete');
+    }
+
+
   })
 
   // 视频 控制模块
-  .controller('VideoDetailCtrl', function($scope, $stateParams, Videos,$location, $state,$http,$cordovaToast,$ionicLoading) {
+  .controller('VideoDetailCtrl', function($scope, $stateParams, Videos,$location, $state,$http,$cordovaToast) {
 
     if (window.localStorage['authorized'] != 'yes'){
       $state.go('signin');
       return;
     }
 
-    $ionicLoading.show({
-      template: 'Loading...'
-    });
     var id = $location.search().id;
-    if (id == '4')
-      $scope.video = Videos.get($stateParams.vid);
-    else{
-      $http.get('http://182.92.230.67:3300/video/' + id).then(function(response) {
-        if (response.data.return == 'empty') {
-          //$cordovaToast.showShortCenter('视频不存在');
-          return;
-        }
-        $scope.video = response.data[0];
-      });
-    }
-    $ionicLoading.hide();
+    $http.get('http://182.92.230.67:3300/video/' + id).then(function(response) {
+      if (response.data.return == 'empty') {
+        //$cordovaToast.showShortCenter('视频不存在');
+        return;
+      }
+      $scope.video = response.data[0];
+    });
+    $scope.videosrc = "mvqq.html?vid=" + $location.search().vid;
+
 
     $scope.videoHeight = function(){
       var winWidth = 0;
@@ -238,8 +247,6 @@ angular.module('starter.controllers', ['ngCordova'])
         $cordovaToast.showShortCenter('谢谢支持！');
       })
     }
-
-    $scope.videosrc = "mvqq.html?vid=" + $location.search().vid;
 
   })
 
