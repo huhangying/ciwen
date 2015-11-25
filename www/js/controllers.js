@@ -1,12 +1,47 @@
 var SITE_API_URL = "http://182.92.230.67:3300";
 var reCell = new RegExp(/^0?(13[0-9]|15[012356789]|17[0678]|18[0-9]|14[57])[0-9]{8}$/);
 
+
+
 angular.module('starter.controllers', ['ngCordova'])
 
-  .controller('HomeCtrl', function($scope,$http) {
+  .controller('HomeCtrl', function($scope,$rootScope,$http,$cordovaToast,$ionicHistory) {
     //$cordovaProgress.showAnnular(true, 50000);
     $scope.title = '<img src="img/logo.png" alt="首页" height="40px" />'
 
+    $scope.getVideos = function() {
+
+      $http.get(SITE_API_URL + '/video').then(function(response){
+
+        if (response.data.return == 'empty'){
+          $scope.videos = [];
+          $cordovaToast.showShortCenter('没有视频');
+          return;
+        }
+        $scope.videos = response.data;
+        if ($scope.videos && $scope.videos.length > 0){
+          $scope.videos = response.data;
+          if ($scope.videos && $scope.videos.length > 0) {
+            $scope.video = $scope.videos[0];
+            if (!$rootScope.count) $rootScope.count = 0;
+            $rootScope.count++;
+            $scope.videoid = $rootScope.count;
+          }
+        }
+      });
+    };
+
+    $scope.getVideos();
+
+    $scope.$on('ngRenderFinished', function (ngRenderFinishedEvent) {
+      // render完成后执行的js
+      $scope.player = videojs("main_video"+ $scope.videoid);
+    });
+    $scope.$on('$ionicView.unloaded', function () {
+      // render完成后执行的js
+      $scope.player.destroy();
+      $ionicHistory.clearCache();
+    });
 
     $scope.videoHeight = function(){
       var winWidth = 0;
@@ -18,7 +53,14 @@ angular.module('starter.controllers', ['ngCordova'])
       {
         winWidth = document.documentElement.clientWidth;
       }
-      return winWidth * 10 / 16;
+      return winWidth * 9 / 16;
+    }
+
+    $scope.doRefresh = function(){
+      this.getVideos();
+
+      //Stop the ion-refresher from spinning
+      $scope.$broadcast('scroll.refreshComplete');
     }
   })
 
@@ -52,10 +94,7 @@ angular.module('starter.controllers', ['ngCordova'])
 
           localStorage['cell'] = user.cell;
           localStorage['name'] = response.data[0].user_name;
-          //storage["pwd"] =  user.password;;
-          //storage["isstorePwd"] =  "yes";
           localStorage['authorized'] = 'yes';
-          //localStorage['previous_state'] = '';//TrackPreviousState.getPrevious();
 
           // 如果状态是播放视频页，改到视频分类页（因为视频页带参数）
           if ($rootScope.previousState == 'tab.video-detail')
@@ -203,23 +242,43 @@ angular.module('starter.controllers', ['ngCordova'])
   })
 
   // 视频 控制模块
-  .controller('VideoDetailCtrl', function($scope, $stateParams, Videos,$location, $state,$http,$cordovaToast) {
+  .controller('VideoDetailCtrl', function($scope, $stateParams, Videos,$state,$http,$cordovaToast,$ionicHistory,$rootScope) {
 
     if (window.localStorage['authorized'] != 'yes'){
       $state.go('signin');
       return;
     }
 
-    var id = $location.search().id;
-    $http.get('http://182.92.230.67:3300/video/' + id).then(function(response) {
-      if (response.data.return == 'empty') {
-        //$cordovaToast.showShortCenter('视频不存在');
-        return;
-      }
-      $scope.video = response.data[0];
-    });
-    $scope.videosrc = "mvqq.html?vid=" + $location.search().vid;
+    $scope.getVideoById = function(id) {
 
+      $http.get('http://182.92.230.67:3300/video/' + id).then(function(response) {
+        if (response.data.return == 'empty') {
+          //$cordovaToast.showShortCenter('视频不存在');
+          return;
+        }
+        $scope.videos = response.data;
+        if ($scope.videos && $scope.videos.length > 0){
+          $scope.video = $scope.videos[0];
+          if (!$rootScope.count) $rootScope.count = 0;
+          $rootScope.count++;
+          $scope.videoid = $rootScope.count;
+        }
+
+      });
+    };
+
+    $scope.getVideoById($stateParams.vid);
+
+    $scope.$on('ngRenderFinished', function (scope, element, attrs) {
+      // render完成后执行的js
+      //alert($scope.videoid);
+      $scope.player = videojs('my_video'+ $scope.videoid);
+    });
+
+    $scope.$on('$ionicView.unloaded', function () {
+      $scope.player.destroy();
+      $ionicHistory.clearCache()
+    });
 
     $scope.videoHeight = function(){
       var winWidth = 0;
@@ -297,6 +356,15 @@ angular.module('starter.controllers', ['ngCordova'])
       //alert(JSON.stringify($scope.videos));
     });
 
+  })
+
+  .directive('onFinishRender', function () {
+    return {
+      restrict: 'A',
+        link: function(scope, element, attrs) {
+         if (scope.$last) setTimeout(function(){
+          scope.$emit('ngRenderFinished', element, attrs);
+        }, 1);
+      }
+    };
   });
-
-

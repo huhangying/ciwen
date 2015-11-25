@@ -1,5 +1,6 @@
 <ion-view view-title="{{title}}">
   <ion-content class="">
+    <ion-refresher on-refresh="doRefresh()"></ion-refresher>
     <div class="item item-divider">热门推荐</div>
     <style>
       a{
@@ -8,90 +9,46 @@
       }
     </style>
 
-    <iframe  id="iframepage" name="iframepage" src="mvqq.html?vid=m0173tyhpz1" width="100%" height="{{videoHeight() + 20}}"
-             frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="no" allowtransparency="yes"
-             style="margin-top: -50px"></iframe>
+    <!--<vjs-video-container vjs-ratio="16:9">-->
+      <!--<video class="video-js vjs-default-skin" width="50" height="50" controls preload="auto"-->
+             <!--poster="http://video-js.zencoder.com/oceans-clip.png">-->
+        <!--<source src="http://101.200.81.99:8080/ciwen/test2x.mp4" type='video/mp4' />-->
+      <!--</video>-->
+    <!--</vjs-video-container>-->
+
+    <video  class="video-js vjs-default-skin vjs-big-play-centered" on-finish-render ng-repeat="video in videos | limitTo:1"
+           controls preload="auto" style="width: 100%" height="{{videoHeight()}}" id="main_video{{videoid}}"
+           poster="{{video.screenshot}}">
+      <source src="http://101.200.81.99:8080/ciwen/test2x.mp4" type='video/mp4'>
+    </video>
+    <!--<iframe  id="iframepage" name="iframepage" src="mvqq.html?vid=m0173tyhpz1" width="100%" height="{{videoHeight() + 20}}"-->
+             <!--frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="no" allowtransparency="yes"-->
+             <!--style="margin-top: -50px"></iframe>-->
+
 
     <div class="row">
-      <div class="col col-50">
-        <a href="#/tab/video/1?id=1&vid=l0173js75qp">
-          <img src="http://product.geiliyou.com/ciwen/asset/l0173js75qp.JPG" width="100%" />
+      <div class="col col-50" ng-repeat="video in videos | limitTo:2:0">
+        <a href="#/tab/video/{{video.id}}?id={{video.id}}&vid={{video.url}}">
+          <img src="{{video.screenshot}}" width="100%" />
           <p>
-            【视频标题】OP名称   <br/>
-            【作者名】慈文传媒
-          </p>
-        </a>
-      </div>
-      <div class="col col-50">
-        <a href="#/tab/video/2?id=2&vid=m0173tyhpz1">
-          <img src="http://product.geiliyou.com/ciwen/asset/m0173tyhpz1.JPG"  width="100%" />
-          <p>
-            【视频标题】OP名称   <br/>
-            【作者名】慈文传媒
+            {{video.name}}<br/>
+            {{video.author}}
           </p>
         </a>
       </div>
     </div>
     <div class="row">
-      <div class="col col-50">
-        <a href="#/tab/video/2?id=2&vid=m0173tyhpz1">
-          <img src="http://product.geiliyou.com/ciwen/asset/m0173tyhpz1.JPG"  width="100%" />
+      <div class="col col-50" ng-repeat="video in videos | limitTo:2:2">
+        <a href="#/tab/video/{{video.id}}?id={{video.id}}&vid={{video.url}}">
+          <img src="{{video.screenshot}}" width="100%" />
           <p>
-            【视频标题】OP名称   <br/>
-            【作者名】慈文传媒
-          </p>
-        </a>
-      </div>
-      <div class="col col-50">
-        <a href="#/tab/video/1?id=1&vid=l0173js75qp">
-          <img src="http://product.geiliyou.com/ciwen/asset/l0173js75qp.JPG" width="100%" />
-          <p>
-            【视频标题】OP名称   <br/>
-            【作者名】慈文传媒
+            {{video.name}}<br/>
+            {{video.author}}
           </p>
         </a>
       </div>
     </div>
-    <div class="row">
-      <div class="col col-50">
-        <a href="#/tab/video/1?id=1&vid=l0173js75qp">
-          <img src="http://product.geiliyou.com/ciwen/asset/l0173js75qp.JPG" width="100%" />
-          <p>
-            【视频标题】OP名称   <br/>
-            【作者名】慈文传媒
-          </p>
-        </a>
-      </div>
-      <div class="col col-50">
-        <a href="#/tab/video/2?id=2&vid=m0173tyhpz1">
-          <img src="http://product.geiliyou.com/ciwen/asset/m0173tyhpz1.JPG"  width="100%" />
-          <p>
-            【视频标题】OP名称   <br/>
-            【作者名】慈文传媒
-          </p>
-        </a>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col col-50">
-        <a href="#/tab/video/2?id=2&vid=m0173tyhpz1">
-          <img src="http://product.geiliyou.com/ciwen/asset/m0173tyhpz1.JPG"  width="100%" />
-          <p>
-            【视频标题】OP名称   <br/>
-            【作者名】慈文传媒
-          </p>
-        </a>
-      </div>
-      <div class="col col-50">
-        <a href="#/tab/video/1?id=1&vid=l0173js75qp">
-          <img src="http://product.geiliyou.com/ciwen/asset/l0173js75qp.JPG" width="100%" />
-          <p>
-            【视频标题】OP名称   <br/>
-            【作者名】慈文传媒
-          </p>
-        </a>
-      </div>
-    </div>
+
 
     <div class="list card hide">
       <div class="item item-divider">测试</div>
@@ -103,5 +60,6 @@
         </div>
       </div>
     </div>
+
   </ion-content>
 </ion-view>

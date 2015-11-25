@@ -9,10 +9,12 @@
     </author>
   <content src="index.html"/>
   <allow-navigation href="http://182.92.230.67/*"/>
+  <allow-navigation href="http://101.200.81.99:8080/*"/>
   <allow-navigation href="http://*.youku.com/*"/>
   <allow-navigation href="http://*.geiliyou.com/*"/>
   <allow-navigation href="http://*.qq.com/*"/>
   <access origin="*"/>
+  <allow-intent href="http://*/*" />
   <preference name="webviewbounce" value="false"/>
   <preference name="UIWebViewBounce" value="false"/>
   <preference name="DisallowOverscroll" value="true"/>

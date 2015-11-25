@@ -1,8 +1,17 @@
 <ion-view cache-view="false" view-title="详细视频">
   <ion-content>
-    <iframe  id="iframepage" name="iframepage" src="{{videosrc}}" width="100%" height="{{videoHeight() + 20}}"
-             frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="no" allowtransparency="yes"
-             style="margin-top: -50px"></iframe>
+
+    <video class="video-js vjs-default-skin vjs-big-play-centered" on-finish-render ng-repeat="video in videos"
+           controls  style="width: 100%" height="{{videoHeight()}}" id="my_video{{videoid}}"
+           poster="{{video.screenshot}}"
+           data-setup='{"example_option":true}'>
+      <!--<source src="{{video.url}}" type='video/mp4'>-->
+      <source src="http://101.200.81.99:8080/ciwen/test2x.mp4" type='video/mp4'>
+    </video>
+
+    <!--<iframe  id="iframepage" name="iframepage" src="{{videosrc}}" width="100%" height="{{videoHeight() + 20}}"-->
+             <!--frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="no" allowtransparency="yes"-->
+             <!--style="margin-top: -50px"></iframe>-->
 
     <div class="text-center energized">{{video.vote}}</div>
     <ion-list>
